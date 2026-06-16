@@ -1,0 +1,1 @@
+print("AI Personal Finance App Started Successfully!")
