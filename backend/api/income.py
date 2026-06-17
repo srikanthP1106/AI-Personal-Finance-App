@@ -36,3 +36,31 @@ def get_income():
     data = cursor.fetchall()
 
     return data
+@router.put("/income/{income_id}")
+def update_income(income_id: int, amount: float, source: str):
+
+    cursor.execute(
+        "UPDATE income SET amount = %s, source = %s WHERE id = %s",
+        (amount, source, income_id)
+    )
+
+    connection.commit()
+
+    return {
+        "message": "Income Updated Successfully"
+    }
+
+
+@router.delete("/income/{income_id}")
+def delete_income(income_id: int):
+
+    cursor.execute(
+        "DELETE FROM income WHERE id = %s",
+        (income_id,)
+    )
+
+    connection.commit()
+
+    return {
+        "message": "Income Deleted Successfully"
+    }
