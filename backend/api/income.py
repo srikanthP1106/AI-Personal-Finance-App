@@ -1,8 +1,11 @@
 from fastapi import APIRouter
+from database.db import connection, cursor
+from backend.schemas.income import IncomeCreate
 
 router = APIRouter()
 
 income_data = []
+
 
 @router.post("/income")
 def add_income(amount: float, source: str):
@@ -12,7 +15,12 @@ def add_income(amount: float, source: str):
         "source": source
     }
 
-    income_data.append(income)
+    cursor.execute(
+        "INSERT INTO income (amount, source) VALUES (%s, %s)",
+        (amount, source)
+    )
+
+    connection.commit()
 
     return {
         "message": "Income Added Successfully",
@@ -22,4 +30,9 @@ def add_income(amount: float, source: str):
 
 @router.get("/income")
 def get_income():
-    return income_data
+
+    cursor.execute("SELECT * FROM income")
+
+    data = cursor.fetchall()
+
+    return data
