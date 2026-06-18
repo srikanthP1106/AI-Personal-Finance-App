@@ -4,6 +4,7 @@ from backend.schemas.expense import ExpenseCreate
 
 router = APIRouter()
 
+
 @router.post("/expense")
 def add_expense(amount: float, category: str):
 
@@ -33,3 +34,33 @@ def get_expense():
     data = cursor.fetchall()
 
     return data
+
+
+@router.put("/expense/{expense_id}")
+def update_expense(expense_id: int, amount: float, category: str):
+
+    cursor.execute(
+        "UPDATE expense SET amount = %s, category = %s WHERE id = %s",
+        (amount, category, expense_id)
+    )
+
+    connection.commit()
+
+    return {
+        "message": "Expense Updated Successfully"
+    }
+
+
+@router.delete("/expense/{expense_id}")
+def delete_expense(expense_id: int):
+
+    cursor.execute(
+        "DELETE FROM expense WHERE id = %s",
+        (expense_id,)
+    )
+
+    connection.commit()
+
+    return {
+        "message": "Expense Deleted Successfully"
+    }
