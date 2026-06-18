@@ -3,6 +3,13 @@ import requests
 import pandas as pd
 import plotly.express as px
 
+st.sidebar.title("Navigation")
+
+page = st.sidebar.radio(
+    "Go To",
+    ["Dashboard"]
+)
+
 st.title("Personal Finance Manager")
 
 # Income Section
@@ -295,3 +302,44 @@ if st.button("Update Expense"):
         st.success("Expense Updated Successfully")
     else:
         st.error("Failed to Update Expense")
+        # AI Spending Insights
+
+st.header("AI Spending Insights")
+
+expense_percentage = 0
+
+if data["total_income"] > 0:
+    expense_percentage = (
+        data["total_expense"] / data["total_income"]
+    ) * 100
+
+st.info(
+    f"Your expenses are {expense_percentage:.2f}% of your income."
+)
+
+if expense_percentage < 50:
+    st.success("Excellent savings habit. Keep it up!")
+
+elif expense_percentage < 80:
+    st.warning("Your expenses are increasing. Monitor spending.")
+
+else:
+    st.error("High spending detected. Consider reducing expenses.")
+    # Recent Transactions
+
+st.header("Recent Income Transactions")
+
+income_response = requests.get(
+    "http://127.0.0.1:8000/income"
+)
+
+if income_response.status_code == 200:
+
+    income_data = income_response.json()
+
+    income_df = pd.DataFrame(
+        income_data,
+        columns=["ID", "Amount", "Source", "Created At"]
+    )
+
+    st.dataframe(income_df.tail(5))
