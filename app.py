@@ -164,3 +164,20 @@ bar_fig = px.bar(
 )
 
 st.plotly_chart(bar_fig)
+# Monthly Summary
+
+st.header("Monthly Summary")
+
+summary_response = requests.get(
+    "http://127.0.0.1:8000/monthly-summary"
+)
+
+if summary_response.status_code == 200:
+
+    summary_data = summary_response.json()
+
+    st.success(
+        f"Income: ₹{summary_data['income']} | "
+        f"Expense: ₹{summary_data['expense']} | "
+        f"Savings: ₹{summary_data['savings']}"
+    )
