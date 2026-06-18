@@ -181,3 +181,117 @@ if summary_response.status_code == 200:
         f"Expense: ₹{summary_data['expense']} | "
         f"Savings: ₹{summary_data['savings']}"
     )
+    # Delete Income
+
+st.header("Delete Income")
+
+income_id = st.number_input(
+    "Enter Income ID",
+    min_value=1,
+    step=1,
+    key="delete_income"
+)
+
+if st.button("Delete Income"):
+
+    response = requests.delete(
+        f"http://127.0.0.1:8000/income/{income_id}"
+    )
+
+    if response.status_code == 200:
+        st.success("Income Deleted Successfully")
+    else:
+        st.error("Failed to Delete Income")
+        # Delete Expense
+
+st.header("Delete Expense")
+
+expense_id = st.number_input(
+    "Enter Expense ID",
+    min_value=1,
+    step=1,
+    key="delete_expense"
+)
+
+if st.button("Delete Expense"):
+
+    response = requests.delete(
+        f"http://127.0.0.1:8000/expense/{expense_id}"
+    )
+
+    if response.status_code == 200:
+        st.success("Expense Deleted Successfully")
+    else:
+        st.error("Failed to Delete Expense")
+        # Update Income
+
+st.header("Update Income")
+
+update_income_id = st.number_input(
+    "Enter Income ID to Update",
+    min_value=1,
+    step=1,
+    key="update_income_id"
+)
+
+new_income_amount = st.number_input(
+    "Enter New Income Amount",
+    min_value=0.0,
+    key="new_income_amount"
+)
+
+new_income_source = st.text_input(
+    "Enter New Income Source",
+    key="new_income_source"
+)
+
+if st.button("Update Income"):
+
+    response = requests.put(
+        f"http://127.0.0.1:8000/income/{update_income_id}",
+        params={
+            "amount": new_income_amount,
+            "source": new_income_source
+        }
+    )
+
+    if response.status_code == 200:
+        st.success("Income Updated Successfully")
+    else:
+        st.error("Failed to Update Income")
+        # Update Expense
+
+st.header("Update Expense")
+
+update_expense_id = st.number_input(
+    "Enter Expense ID to Update",
+    min_value=1,
+    step=1,
+    key="update_expense_id"
+)
+
+new_expense_amount = st.number_input(
+    "Enter New Expense Amount",
+    min_value=0.0,
+    key="new_expense_amount"
+)
+
+new_expense_category = st.text_input(
+    "Enter New Expense Category",
+    key="new_expense_category"
+)
+
+if st.button("Update Expense"):
+
+    response = requests.put(
+        f"http://127.0.0.1:8000/expense/{update_expense_id}",
+        params={
+            "amount": new_expense_amount,
+            "category": new_expense_category
+        }
+    )
+
+    if response.status_code == 200:
+        st.success("Expense Updated Successfully")
+    else:
+        st.error("Failed to Update Expense")
