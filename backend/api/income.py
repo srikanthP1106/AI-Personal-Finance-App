@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from database.db import connection, cursor
+from backend.crud.income_crud import get_all_income
 from backend.schemas.income import IncomeCreate
 
 router = APIRouter()
@@ -31,11 +32,7 @@ def add_income(amount: float, source: str):
 @router.get("/income")
 def get_income():
 
-    cursor.execute("SELECT * FROM income")
-
-    data = cursor.fetchall()
-
-    return data
+    return get_all_income()
 @router.put("/income/{income_id}")
 def update_income(income_id: int, amount: float, source: str):
 

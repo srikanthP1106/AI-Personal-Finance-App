@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from database.db import connection, cursor
 from backend.schemas.expense import ExpenseCreate
+from backend.crud.expense_crud import get_all_expense
 
 router = APIRouter()
 
@@ -29,12 +30,7 @@ def add_expense(amount: float, category: str):
 @router.get("/expense")
 def get_expense():
 
-    cursor.execute("SELECT * FROM expense")
-
-    data = cursor.fetchall()
-
-    return data
-
+    return get_all_expense()
 
 @router.put("/expense/{expense_id}")
 def update_expense(expense_id: int, amount: float, category: str):
