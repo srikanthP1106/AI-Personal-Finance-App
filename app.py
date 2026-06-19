@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import plotly.express as px
+from agents.investment_advisor_agent import investment_advice
 
 st.sidebar.title("Navigation")
 
@@ -325,21 +326,15 @@ elif expense_percentage < 80:
 
 else:
     st.error("High spending detected. Consider reducing expenses.")
-    # Recent Transactions
 
-st.header("Recent Income Transactions")
 
-income_response = requests.get(
-    "http://127.0.0.1:8000/income"
+# AI Investment Advisor
+
+st.header("AI Investment Advisor")
+
+advice = investment_advice(
+    data["total_income"],
+    data["total_expense"]
 )
 
-if income_response.status_code == 200:
-
-    income_data = income_response.json()
-
-    income_df = pd.DataFrame(
-        income_data,
-        columns=["ID", "Amount", "Source", "Created At"]
-    )
-
-    st.dataframe(income_df.tail(5))
+st.info(advice)
