@@ -466,3 +466,70 @@ if st.button("Generate PDF Report"):
     st.success(
         f"Report Generated: {pdf_file}"
     )
+    # EMI Calculator
+
+st.header("Loan EMI Calculator")
+
+loan_amount = st.number_input(
+    "Loan Amount",
+    min_value=1000,
+    value=100000
+)
+
+interest_rate = st.number_input(
+    "Interest Rate (%)",
+    min_value=1.0,
+    value=10.0
+)
+
+loan_years = st.number_input(
+    "Loan Tenure (Years)",
+    min_value=1,
+    value=5
+)
+
+monthly_rate = interest_rate / 12 / 100
+
+months = loan_years * 12
+
+emi = (
+    loan_amount * monthly_rate *
+    ((1 + monthly_rate) ** months)
+) / (
+    ((1 + monthly_rate) ** months) - 1
+)
+
+st.metric(
+    "Estimated EMI",
+    f"₹{emi:,.0f}"
+)
+# Fixed Deposit Calculator
+
+st.header("Fixed Deposit Calculator")
+
+fd_amount = st.number_input(
+    "FD Amount",
+    min_value=1000,
+    value=50000
+)
+
+fd_rate = st.number_input(
+    "FD Interest Rate (%)",
+    min_value=1.0,
+    value=7.0
+)
+
+fd_years = st.number_input(
+    "FD Duration (Years)",
+    min_value=1,
+    value=3
+)
+
+fd_maturity = fd_amount * (
+    (1 + fd_rate / 100) ** fd_years
+)
+
+st.metric(
+    "Maturity Amount",
+    f"₹{fd_maturity:,.0f}"
+)
