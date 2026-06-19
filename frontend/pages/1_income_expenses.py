@@ -1,7 +1,13 @@
 import streamlit as st
 
-st.set_page_config(page_title="Income & Expenses")
+st.title("Income & Expenses")
 
-st.title("Income & Expense Management")
+st.success("Income & Expense Module Ready")
 
-st.success("Income & Expense Page Working")
+st.write("This page will contain:")
+st.write("✅ Add Income")
+st.write("✅ Add Expense")
+st.write("✅ Update Income")
+st.write("✅ Update Expense")
+st.write("✅ Delete Income")
+st.write("✅ Delete Expense")

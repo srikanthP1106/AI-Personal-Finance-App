@@ -1,7 +1,9 @@
 import streamlit as st
 
-st.set_page_config(page_title="Summary Report")
+st.title("Summary Report")
 
-st.title("Summary & Reports")
+st.success("Summary Module Ready")
 
-st.success("Summary Page Working")
+st.write("✅ Monthly Summary")
+st.write("✅ Net Worth History")
+st.write("✅ PDF Reports")
