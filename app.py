@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import plotly.express as px
 from agents.investment_advisor_agent import investment_advice
+from utils.calculations import calculate_financial_health_score
 
 st.sidebar.title("Navigation")
 
@@ -338,3 +339,22 @@ advice = investment_advice(
 )
 
 st.info(advice)
+# Financial Health Score
+
+st.header("Financial Health Score")
+
+score = calculate_financial_health_score(
+    data["total_income"],
+    data["total_expense"]
+)
+
+st.metric("Score", f"{score}/100")
+
+if score >= 90:
+    st.success("Excellent Financial Health")
+
+elif score >= 70:
+    st.warning("Good Financial Health")
+
+else:
+    st.error("Needs Financial Improvement")
