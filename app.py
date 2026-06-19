@@ -4,6 +4,11 @@ import pandas as pd
 import plotly.express as px
 from agents.investment_advisor_agent import investment_advice
 from utils.calculations import calculate_financial_health_score
+from utils.net_worth import calculate_net_worth
+from ml_models.expense_anomaly import detect_expense_anomaly
+from ml_models.savings_predictor import predict_future_savings
+from utils.net_worth_history import get_net_worth_history
+from utils.pdf_report import generate_pdf_report
 
 st.sidebar.title("Navigation")
 
@@ -358,3 +363,83 @@ elif score >= 70:
 
 else:
     st.error("Needs Financial Improvement")
+    # Net Worth Tracker
+
+st.header("Net Worth Tracker")
+
+net_worth = calculate_net_worth(
+    data["total_income"],
+    data["total_expense"]
+)
+
+st.metric(
+    "Current Net Worth",
+    f"₹{net_worth}"
+)
+
+if net_worth >= 50000:
+    st.success("Strong Financial Position")
+
+elif net_worth >= 10000:
+    st.warning("Growing Financial Position")
+
+else:
+    st.error("Needs Wealth Building")
+    # Expense Anomaly Detection
+
+st.header("Expense Anomaly Detection")
+
+anomaly_result = detect_expense_anomaly(
+    data["total_expense"]
+)
+
+st.info(anomaly_result)
+# Savings Predictor
+
+st.header("AI Savings Predictor")
+
+predicted_savings = predict_future_savings(
+    data["total_income"],
+    data["total_expense"]
+)
+
+st.metric(
+    "Predicted Annual Savings",
+    f"₹{predicted_savings}"
+)
+# Net Worth History
+
+st.header("Net Worth History")
+
+history = get_net_worth_history()
+
+history_df = pd.DataFrame({
+    "Month": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May"
+    ],
+    "Net Worth": history
+})
+
+history_chart = px.line(
+    history_df,
+    x="Month",
+    y="Net Worth",
+    title="Net Worth Growth"
+)
+
+st.plotly_chart(history_chart)
+# PDF Report Generator
+
+st.header("PDF Report Generator")
+
+if st.button("Generate PDF Report"):
+
+    pdf_file = generate_pdf_report()
+
+    st.success(
+        f"Report Generated: {pdf_file}"
+    )
