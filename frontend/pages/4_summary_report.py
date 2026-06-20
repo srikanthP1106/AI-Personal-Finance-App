@@ -1,9 +1,29 @@
 import streamlit as st
+import requests
 
 st.title("Summary Report")
 
-st.success("Summary Module Ready")
+response = requests.get(
+    "http://127.0.0.1:8000/balance"
+)
 
-st.write("✅ Monthly Summary")
-st.write("✅ Net Worth History")
-st.write("✅ PDF Reports")
+if response.status_code == 200:
+
+    data = response.json()
+
+    st.header("Financial Overview")
+
+    st.metric(
+        "Total Income",
+        f"₹{data['total_income']}"
+    )
+
+    st.metric(
+        "Total Expense",
+        f"₹{data['total_expense']}"
+    )
+
+    st.metric(
+        "Balance",
+        f"₹{data['balance']}"
+    )

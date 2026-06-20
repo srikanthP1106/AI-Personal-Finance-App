@@ -533,3 +533,38 @@ st.metric(
     "Maturity Amount",
     f"₹{fd_maturity:,.0f}"
 )
+# SIP Calculator
+
+st.header("SIP Calculator")
+
+sip_amount = st.number_input(
+    "Monthly SIP Amount",
+    min_value=500,
+    value=2000
+)
+
+sip_years = st.number_input(
+    "SIP Duration (Years)",
+    min_value=1,
+    value=10
+)
+
+sip_return = st.number_input(
+    "Expected Annual Return (%)",
+    min_value=1.0,
+    value=12.0
+)
+
+months = sip_years * 12
+
+monthly_rate = sip_return / 12 / 100
+
+future_value = sip_amount * (
+    (((1 + monthly_rate) ** months) - 1)
+    / monthly_rate
+) * (1 + monthly_rate)
+
+st.metric(
+    "Estimated SIP Value",
+    f"₹{future_value:,.0f}"
+)
