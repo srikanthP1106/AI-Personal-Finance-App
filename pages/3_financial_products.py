@@ -30,3 +30,8 @@ st.metric(
     "Estimated Value",
     f"₹{estimated_value:,.0f}"
 )
+st.markdown("---")
+
+st.caption(
+    "Developed by Srikanth Paruchuri | AI Personal Finance Manager | 2026"
+)

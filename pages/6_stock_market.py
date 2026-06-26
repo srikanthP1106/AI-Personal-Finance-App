@@ -18,3 +18,8 @@ st.metric(
     "Daily Change",
     "+2.5%"
 )
+st.markdown("---")
+
+st.caption(
+    "Developed by Srikanth Paruchuri | AI Personal Finance Manager | 2026"
+)

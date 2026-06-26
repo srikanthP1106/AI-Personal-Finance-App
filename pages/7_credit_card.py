@@ -36,3 +36,8 @@ elif utilization < 70:
 
 else:
     st.error("High Credit Utilization")
+    st.markdown("---")
+
+st.caption(
+    "Developed by Srikanth Paruchuri | AI Personal Finance Manager | 2026"
+)

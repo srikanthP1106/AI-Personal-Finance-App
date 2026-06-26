@@ -38,3 +38,8 @@ else:
     st.error(
         "Insurance becomes more expensive with age."
     )
+    st.markdown("---")
+
+st.caption(
+    "Developed by Srikanth Paruchuri | AI Personal Finance Manager | 2026"
+)

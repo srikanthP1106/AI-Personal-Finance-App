@@ -49,3 +49,8 @@ st.metric(
     "Total Payment",
     f"₹{total_payment:,.0f}"
 )
+st.markdown("---")
+
+st.caption(
+    "Developed by Srikanth Paruchuri | AI Personal Finance Manager | 2026"
+)

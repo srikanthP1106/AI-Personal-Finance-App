@@ -11,12 +11,14 @@ from utils.net_worth_history import get_net_worth_history
 from utils.pdf_report import generate_pdf_report
 
 
-st.sidebar.title("Navigation")
+
 st.set_page_config(
     page_title="AI Personal Finance Manager",
     page_icon="💰",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
+st.sidebar.success("Select a page above")
 
 st.title("💰 AI Personal Finance Manager")
 
@@ -24,21 +26,7 @@ st.success(
     "Welcome to your AI-Powered Financial Platform"
 )
 
-page = st.sidebar.radio(
-    "Go To",
-    [
-        "Dashboard",
-        "Income & Expenses",
-        "AI Investment",
-        "Financial Products",
-        "Summary Report"
-    ]
-)
-if page != "Dashboard":
 
-    st.info(
-        f"{page} module has been created in frontend/pages."
-    )
 
 st.title("Personal Finance Manager")
 

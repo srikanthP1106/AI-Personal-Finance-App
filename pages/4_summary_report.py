@@ -27,3 +27,8 @@ if response.status_code == 200:
         "Balance",
         f"₹{data['balance']}"
     )
+    st.markdown("---")
+
+st.caption(
+    "Developed by Srikanth Paruchuri | AI Personal Finance Manager | 2026"
+)
